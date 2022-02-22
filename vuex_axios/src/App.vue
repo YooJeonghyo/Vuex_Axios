@@ -1,32 +1,49 @@
 <template>
-  <v-app>
-    <v-app-bar app color="indigo" dark>
-      <v-app-bar-nav-icon @click="drawer = !drawer" />
-      <v-toolbar-title> 타이틀 </v-toolbar-title>
-      <v-spacer />
-    </v-app-bar>
-    <v-navigation-drawer app v-model="drawer">
-      <v-list-item>
-        <v-list-item-content>
-          <v-list-item-title class="title"> Application </v-list-item-title>
-          <v-list-item-subtitle> subtext </v-list-item-subtitle>
-        </v-list-item-content>
-      </v-list-item>
-      <v-divider></v-divider>
-      <v-list-item v-for="item in items" :key="item.title" :to="item.to">
-        <v-list-item-content>
-          {{ item.title }}
-        </v-list-item-content>
-      </v-list-item>
-    </v-navigation-drawer>
-    <v-main>
-      <router-view />
-    </v-main>
-    <v-footer app color="indigo" dark absolute>
-      <v-spacer></v-spacer>
-      <div>&copy; {{ new Date().getFullYear() }}</div>
-    </v-footer>
-  </v-app>
+  <div id="app">
+    <v-app id="inspire">
+      <v-app id="inspire">
+        <v-navigation-drawer v-model="drawer" app>
+          <v-list dense>
+            <v-list-item :to="{ path: '/' }">
+              <v-list-item-action>
+                <v-icon>mdi-home</v-icon>
+              </v-list-item-action>
+              <v-list-item-content>
+                <v-list-item-title>Home</v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
+            <v-list-item :to="{ path: '/users' }">
+              <v-list-item-action>
+                <v-icon>mdi-email</v-icon>
+              </v-list-item-action>
+              <v-list-item-content>
+                <v-list-item-title>회원관리</v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
+            <v-list-item :to="{ path: '/about' }">
+              <v-list-item-action>
+                <v-icon>mdi-dog</v-icon>
+              </v-list-item-action>
+              <v-list-item-content>
+                <v-list-item-title>about</v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
+          </v-list>
+        </v-navigation-drawer>
+
+        <v-app-bar app color="indigo" dark>
+          <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
+          <v-toolbar-title>Application</v-toolbar-title>
+        </v-app-bar>
+        <v-main>
+          <router-view />
+        </v-main>
+        <v-footer color="indigo" app>
+          <span class="white--text">&copy; {{ new Date().getFullYear() }}</span>
+        </v-footer>
+      </v-app>
+    </v-app>
+  </div>
 </template>
 
 <script>
