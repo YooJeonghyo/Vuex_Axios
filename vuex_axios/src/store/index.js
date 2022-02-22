@@ -23,10 +23,15 @@ export default new Vuex.Store({
       return count;
     },
     percentOfSeoul: (state, getters) => {
+      //getters의 데이터가 state를 참조하기 때문에 파라미터로 넣어주어야함
       return Math.round((getters.countOfSeoul / getters.getUsersCount) * 100);
     }
   },
-  mutations: {},
+  mutations: {
+    addUsers: (state, payload) => {
+      state.allUsers.push(payload);
+    }
+  },
   actions: {},
   modules: {}
 });

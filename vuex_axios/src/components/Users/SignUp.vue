@@ -11,8 +11,6 @@
 </template>
 
 <script>
-import { EventBus } from '@/main.js';
-
 export default {
   data() {
     return {
@@ -32,11 +30,15 @@ export default {
         address: this.address,
         src: this.src
       };
-      this.$store.state.allUsers.push(userObj);
+      this.$store.commit('addUsers', userObj);
       this.clearForm();
     },
     clearForm() {
-      (this.userId = null), (this.password = null), (this.name = null), (this.address = null), (this.src = null);
+      this.userId = null;
+      this.password = null;
+      this.name = null;
+      this.address = null;
+      this.src = null;
     }
   }
 };
