@@ -32,7 +32,7 @@ export default {
         address: this.address,
         src: this.src
       };
-      EventBus.$emit('signUp', userObj);
+      this.$store.state.allUsers.push(userObj);
       this.clearForm();
     },
     clearForm() {
