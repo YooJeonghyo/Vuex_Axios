@@ -11,6 +11,7 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex';
 export default {
   data() {
     return {
@@ -22,6 +23,7 @@ export default {
     };
   },
   methods: {
+    ...mapActions(['addUsers']),
     signUp() {
       let userObj = {
         userId: this.userId,
@@ -30,7 +32,7 @@ export default {
         address: this.address,
         src: this.src
       };
-      this.$store.commit('addUsers', userObj);
+      this.addUsers(userObj);
       this.clearForm();
     },
     clearForm() {

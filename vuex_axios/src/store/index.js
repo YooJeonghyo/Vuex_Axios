@@ -32,6 +32,10 @@ export default new Vuex.Store({
       state.allUsers.push(payload);
     }
   },
-  actions: {},
+  actions: {
+    addUsers: ({ commit }, payload) => {
+      commit('addUsers', payload);
+    }
+  },
   modules: {}
 });
