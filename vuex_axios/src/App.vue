@@ -12,7 +12,15 @@
                 <v-list-item-title>Home</v-list-item-title>
               </v-list-item-content>
             </v-list-item>
-            <v-list-item :to="{ path: '/login' }">
+            <v-list-item :to="{ path: '/users' }">
+              <v-list-item-action>
+                <v-icon>mdi-test-tube</v-icon>
+              </v-list-item-action>
+              <v-list-item-content>
+                <v-list-item-title>vuex 회원관리 테스트</v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
+            <v-list-item v-if="isLogin === false" :to="{ path: '/login' }">
               <v-list-item-action>
                 <v-icon>mdi-login</v-icon>
               </v-list-item-action>
@@ -20,15 +28,7 @@
                 <v-list-item-title>로그인</v-list-item-title>
               </v-list-item-content>
             </v-list-item>
-            <v-list-item :to="{ path: '/users' }">
-              <v-list-item-action>
-                <v-icon>mdi-email</v-icon>
-              </v-list-item-action>
-              <v-list-item-content>
-                <v-list-item-title>회원관리</v-list-item-title>
-              </v-list-item-content>
-            </v-list-item>
-            <v-list-item :to="{ path: '/mypage' }">
+            <v-list-item v-else :to="{ path: '/mypage' }">
               <v-list-item-action>
                 <v-icon>mdi-dog</v-icon>
               </v-list-item-action>
@@ -41,7 +41,7 @@
 
         <v-app-bar app color="indigo" dark>
           <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
-          <v-toolbar-title>Application</v-toolbar-title>
+          <v-toolbar-title>YJH Vuex Study Web</v-toolbar-title>
           <v-spacer></v-spacer>
           <v-toolbar-items class="hidden-sm-and-down">
             <v-menu offset-y v-if="isLogin">
@@ -54,7 +54,7 @@
                 <v-list-item :to="{ path: '/mypage' }">
                   <v-list-item-title>마이페이지</v-list-item-title>
                 </v-list-item>
-                <v-list-item @click="$store.dispatch('logout')">
+                <v-list-item @click="logout">
                   <v-list-item-title>로그아웃</v-list-item-title>
                 </v-list-item>
               </v-list>
@@ -74,32 +74,18 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapState, mapActions } from 'vuex';
 export default {
   computed: {
     ...mapState(['isLogin'])
   },
   data() {
     return {
-      drawer: null,
-      items: [
-        {
-          title: 'home',
-          to: '/'
-        },
-        {
-          title: 'about',
-          to: '/about'
-        },
-        {
-          title: 'users',
-          to: '/users'
-        }
-      ]
+      drawer: null
     };
   },
-  props: {
-    source: String
+  methods: {
+    ...mapActions(['logout'])
   }
 };
 </script>

@@ -1,5 +1,14 @@
 <template>
-  <div class="about">
-    <h1>내 정보</h1>
+  <div>
+    <h1>{{ userInfo.name }}님 환영합니다.</h1>
   </div>
 </template>
+
+<script>
+import { mapState } from 'vuex';
+export default {
+  computed: {
+    ...mapState(['userInfo'])
+  }
+};
+</script>
