@@ -58,12 +58,10 @@ export default new Vuex.Store({
             setTimeout(() => {
               router.push({ path: '/mypage' });
             }, 1000);
-          } else {
-            commit('loginError');
           }
         })
         .catch(error => {
-          console.log(error);
+          commit('loginError');
         });
     },
     logout({ commit }) {
