@@ -11,33 +11,21 @@ export default new Vuex.Store({
       { id: 1, name: 'test1', email: 'test1@gmail.com', password: '123456' },
       { id: 2, name: 'ex1', email: 'ex1@gmail.com', password: '123456' }
     ],
-    testAllUsers: [
-      { userId: 'test1', password: '123', name: 'test1', address: 'Seoul', src: 'https://octodex.github.com/images/yogitocat.png' },
-      { userId: 'yjh', password: '456', name: 'yjh', address: 'Berlin', src: 'https://octodex.github.com/images/Fintechtocat.png' },
-      { userId: 'vuex', password: '789', name: 'vuex', address: 'Busan', src: 'https://octodex.github.com/images/boxertocat_octodex.jpg' }
-    ],
+    UsersData: [],
     isLogin: false,
     isLoginError: false
   },
   getters: {
     getUsersCount: state => {
-      return state.testAllUsers.length;
-    },
-    countOfSeoul: state => {
-      let count = 0;
-      state.testAllUsers.forEach(user => {
-        if (user.address === 'Seoul') count++;
-      });
-      return count;
-    },
-    percentOfSeoul: (state, getters) => {
-      //getters의 데이터가 state를 참조하기 때문에 파라미터로 넣어주어야함
-      return Math.round((getters.countOfSeoul / getters.getUsersCount) * 100);
+      return state.UsersData.length;
     }
   },
   mutations: {
     addUsers: (state, payload) => {
-      state.testAllUsers.push(payload);
+      state.UsersData.push(payload);
+    },
+    setUsers(state, payload) {
+      state.UsersData.push(...payload);
     },
     // 로그인이 성공했을 때,
     loginSuccess(state, payload) {
@@ -59,6 +47,9 @@ export default new Vuex.Store({
   actions: {
     addUsers: ({ commit }, payload) => {
       commit('addUsers', payload);
+    },
+    setUsers: ({ commit }, payload) => {
+      commit('setUsers', payload);
     },
     //로그인 시도
     login({ state, commit }, loginObj) {

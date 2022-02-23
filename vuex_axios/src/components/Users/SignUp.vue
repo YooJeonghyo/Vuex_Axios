@@ -3,9 +3,10 @@
     <h1>SignUp</h1>
     <v-text-field label="아이디" v-model="userId"></v-text-field>
     <v-text-field label="비밀번호" type="password" v-model="password"></v-text-field>
-    <v-text-field label="이름" v-model="name"></v-text-field>
-    <v-text-field label="주소" v-model="address"></v-text-field>
-    <v-text-field label="이미지" v-model="src"></v-text-field>
+    <v-text-field label="성" v-model="last_name"></v-text-field>
+    <v-text-field label="이름" v-model="first_name"></v-text-field>
+    <v-text-field label="이메일" v-model="email"></v-text-field>
+    <v-text-field label="이미지" v-model="avatar"></v-text-field>
     <v-btn @click="signUp">회원가입</v-btn>
   </div>
 </template>
@@ -17,9 +18,10 @@ export default {
     return {
       userId: null,
       password: null,
-      name: null,
-      address: null,
-      src: null
+      first_name: null,
+      last_name: null,
+      email: null,
+      avatar: null
     };
   },
   methods: {
@@ -28,9 +30,10 @@ export default {
       let userObj = {
         userId: this.userId,
         password: this.password,
-        name: this.name,
-        address: this.address,
-        src: this.src
+        first_name: this.first_name,
+        last_name: this.last_name,
+        email: this.email,
+        avartar: this.avartar
       };
       this.addUsers(userObj);
       this.clearForm();
@@ -38,9 +41,10 @@ export default {
     clearForm() {
       this.userId = null;
       this.password = null;
-      this.name = null;
-      this.address = null;
-      this.src = null;
+      this.first_name = null;
+      this.last_name = null;
+      this.email = null;
+      this.avatar = null;
     }
   }
 };

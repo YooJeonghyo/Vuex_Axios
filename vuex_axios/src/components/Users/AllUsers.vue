@@ -1,15 +1,14 @@
 <template>
   <div>
     <h1>All Users({{ count }})</h1>
-    <h3>서울 거주자 : {{ seouls }} 명 ({{ percent }}%)</h3>
     <v-list two-line>
-      <v-list-item v-for="(user, index) in testAllUsers" :key="index">
+      <v-list-item v-for="(user, index) in UsersData" :key="user.id">
         <v-list-item-avatar color="grey lighten-3">
-          <img :src="user.src" />
+          <img :src="user.avatar" />
         </v-list-item-avatar>
         <v-list-item-content>
-          <v-list-item-title v-html="user.name"></v-list-item-title>
-          <v-list-item-subtitle>id:#{{ index }} / {{ user.address }} 거주</v-list-item-subtitle>
+          <v-list-item-title v-html="user.first_name"></v-list-item-title>
+          <v-list-item-subtitle>id:#{{ index }} / {{ user.last_name }}</v-list-item-subtitle>
         </v-list-item-content>
       </v-list-item>
     </v-list>
@@ -17,20 +16,44 @@
 </template>
 
 <script>
-import { mapState, mapGetters } from 'vuex';
+import { mapState, mapGetters, mapActions } from 'vuex';
+import axios from 'axios';
 
 export default {
   computed: {
-    ...mapState(['testAllUsers']),
+    ...mapState(['UsersData']),
     ...mapGetters({
-      count: 'getUsersCount',
-      seouls: 'countOfSeoul',
-      percent: 'percentOfSeoul'
+      count: 'getUsersCount'
     })
   },
   data() {
     return {};
   },
-  mounted() {}
+  methods: {
+    ...mapActions(['setUsers']),
+    axiosGetUsers() {
+      axios
+        .get('https://reqres.in/api/users?page=1')
+        .then(response => {
+          let userObj = response.data.data;
+          this.setUsers(userObj);
+        })
+        .catch(error => {
+          new Error(error);
+        });
+      axios
+        .get('https://reqres.in/api/users?page=2')
+        .then(response => {
+          let userObj = response.data.data;
+          this.setUsers(userObj);
+        })
+        .catch(error => {
+          new Error(error);
+        });
+    }
+  },
+  mounted() {
+    this.axiosGetUsers();
+  }
 };
 </script>

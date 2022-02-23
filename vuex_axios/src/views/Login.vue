@@ -12,6 +12,7 @@
             <v-text-field v-model="email" label="이메일을 입력하세요"> </v-text-field>
             <v-text-field v-model="password" type="password" label="패스워드를 입력하세요"> </v-text-field>
             <v-btn block large depressed color="primary" @click="login({ email, password })">로그인</v-btn>
+            뭐시라 뭐시라
           </div>
         </v-card>
       </v-flex>
@@ -21,6 +22,7 @@
 \
 <script>
 import { mapState, mapActions } from 'vuex';
+import axios from 'axios';
 export default {
   data() {
     return {
@@ -32,7 +34,17 @@ export default {
     ...mapState(['isLogin', 'isLoginError'])
   },
   methods: {
-    ...mapActions(['login'])
+    ...mapActions(['login']),
+    test() {
+      axios
+        .get('https://reqres.in/api/users?page=2')
+        .then(response => {
+          console.log(response);
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    }
   }
 };
 </script>
