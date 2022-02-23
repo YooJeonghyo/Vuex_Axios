@@ -17,7 +17,7 @@
                 <v-icon>mdi-test-tube</v-icon>
               </v-list-item-action>
               <v-list-item-content>
-                <v-list-item-title>vuex 회원관리 테스트</v-list-item-title>
+                <v-list-item-title>회원관리</v-list-item-title>
               </v-list-item-content>
             </v-list-item>
             <v-list-item v-if="isLogin === false" :to="{ path: '/login' }">

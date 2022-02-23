@@ -1,16 +1,13 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import router from '../router';
+import axios from 'axios';
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
     userInfo: null,
-    allUsers: [
-      { id: 1, name: 'test1', email: 'test1@gmail.com', password: '123456' },
-      { id: 2, name: 'ex1', email: 'ex1@gmail.com', password: '123456' }
-    ],
     UsersData: [],
     isLogin: false,
     isLoginError: false
@@ -53,17 +50,21 @@ export default new Vuex.Store({
     },
     //로그인 시도
     login({ state, commit }, loginObj) {
-      let selectedUser = null;
-      state.allUsers.forEach(user => {
-        if (user.email === loginObj.email) selectedUser = user;
-      });
-      if (selectedUser === null || selectedUser.password !== loginObj.password) commit('loginError');
-      else {
-        commit('loginSuccess', selectedUser);
-        setTimeout(() => {
-          router.push({ path: '/mypage' });
-        }, 1000);
-      }
+      axios
+        .post('https://reqres.in/api/login', loginObj)
+        .then(response => {
+          if (response.status === 200) {
+            commit('loginSuccess', response.data.token);
+            setTimeout(() => {
+              router.push({ path: '/mypage' });
+            }, 1000);
+          } else {
+            commit('loginError');
+          }
+        })
+        .catch(error => {
+          console.log(error);
+        });
     },
     logout({ commit }) {
       commit('logout');
